@@ -1,0 +1,77 @@
+### This is the main way to configure the application (other than annotations).
+### This file is in Yaml format but you can also configure spring boot using the traditional
+### Java properties file format. 
+
+spring.jmx:
+   enabled: false
+
+spring.datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:bootexample;MODE=MySQL
+
+server:
+  port: 8090
+
+#todo: make sure to always enable security in production
+security:
+  basic:
+    enabled: false
+
+#management endpoints on a separate port Note: disable the segment while deploying in tomcat
+management:
+  port: 8091
+  security:
+    enabled: false # management port is internal only. no need to secure it.
+
+#default project info followed by actual injected pom-specified values.
+project:
+  name: spring-boot-rest-example
+  version: 0.1
+  description: AWS SBP API 1 ,SBP API GATEWAY
+info:
+  build:
+    artifact: sbpapigateway
+    name: SBP API
+    description: AWS SBP API 1 GATEWAY
+    version: 1.0
+
+
+---
+spring:
+  profiles: test
+  h2:
+    console:
+      enabled: true
+
+spring.jpa:
+    hibernate.ddl-auto: create-drop
+
+
+  
+logging:
+  file: boot_example.log
+  org.hibernate: INFO
+  
+  
+ # MySQL Profil
+
+  spring:
+  profiles: mysql
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://<your_mysql_host_or_ip>/bootexample
+    username: <your_mysql_username>
+    password: <your_mysql_password>
+
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQLInnoDBDialect
+      ddl-auto: update # todo: in non-dev environments, comment this out:
+
+
+
+ 
+ 
+
+ 
